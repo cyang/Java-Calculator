@@ -30,9 +30,13 @@ public class JavaGUI extends JFrame {
 
         final JTextField numField = new JTextField();
 
+        final JButton mrButton = new JButton("MR");
+
+        final JButton mcButton = new JButton("MC");
+        final JButton mAddButton = new JButton("M+");
+        final JButton mSubButton = new JButton("M-");
 
         final JButton clearButton = new JButton("Clear");
-        final JButton memButton = new JButton("MR");
         final JButton button1 = new JButton("1");
         final JButton button2 = new JButton("2");
         final JButton button3 = new JButton("3");
@@ -42,6 +46,7 @@ public class JavaGUI extends JFrame {
         final JButton button7 = new JButton("7");
         final JButton button8 = new JButton("8");
         final JButton button9 = new JButton("9");
+        final JButton button0 = new JButton("0");
         final JButton addButton = new JButton("+");
         final JButton subButton = new JButton("-");
         final JButton divButton = new JButton("/");
@@ -57,10 +62,33 @@ public class JavaGUI extends JFrame {
             }
         });
 
-        memButton.addActionListener(new ActionListener() {
+        mrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 numField.setText(Double.toString(memory));
+            }
+        });
+
+        mcButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                memory = 0;
+            }
+        });
+
+        mAddButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentOperation = "M+";
+                numField.setText("");
+            }
+        });
+
+        mSubButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentOperation = "M-";
+                numField.setText("");
             }
         });
 
@@ -191,6 +219,20 @@ public class JavaGUI extends JFrame {
                 }
             }
         });
+        button0.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(currentOperation.equals("")){
+                    number1 *= 10;
+                    numField.setText(Double.toString(number1));
+                }
+                else
+                {
+                    number2 *= 10;
+                    numField.setText(Double.toString(number2));
+                }
+            }
+        });
 
 
         addButton.addActionListener(new ActionListener() {
@@ -241,8 +283,15 @@ public class JavaGUI extends JFrame {
                     memory = number1 / number2;
                 else if (currentOperation.equals("*"))
                     memory = number1 * number2;
-                else
-                    numField.setText(numField.getText());
+                else if (currentOperation.equals("M+"))
+                    memory += number2;
+                else if (currentOperation.equals("M-"))
+                    memory -= number2;
+                else {
+                    memory = Double.parseDouble(numField.getText());
+                    numField.setText(Double.toString(memory));
+                }
+
 
                 currentOperation = "";
                 numField.setText(String.valueOf(memory));
@@ -254,7 +303,10 @@ public class JavaGUI extends JFrame {
 
 
         contentPane.add(clearButton);
-        contentPane.add(memButton);
+        contentPane.add(mrButton);
+        contentPane.add(mcButton);
+        contentPane.add(mAddButton);
+        contentPane.add(mSubButton);
         contentPane.add(button1);
         contentPane.add(button2);
         contentPane.add(button3);
@@ -264,6 +316,7 @@ public class JavaGUI extends JFrame {
         contentPane.add(button7);
         contentPane.add(button8);
         contentPane.add(button9);
+        contentPane.add(button0);
         contentPane.add(addButton);
         contentPane.add(subButton);
         contentPane.add(divButton);
