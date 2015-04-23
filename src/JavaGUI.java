@@ -9,6 +9,7 @@ public class JavaGUI extends JFrame {
     private double number1 = 0;
     private double number2 = 0;
     private double memory = 0;
+    private double result = 0;
     private String currentOperation = "";
 
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class JavaGUI extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new GridLayout(5,3,10,10));
 
-        setSize(600, 600);
+        setSize(300, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -79,16 +80,18 @@ public class JavaGUI extends JFrame {
         mAddButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentOperation = "M+";
-                numField.setText("");
+                number1 = Double.parseDouble(numField.getText());
+                memory+=number1;
+                number1=0;
             }
         });
 
         mSubButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentOperation = "M-";
-                numField.setText("");
+                number1 = Double.parseDouble(numField.getText());
+                memory-=number1;
+                number1=0;
             }
         });
 
@@ -276,28 +279,22 @@ public class JavaGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 number2 = Double.parseDouble(numField.getText());
                 if(currentOperation.equals("+"))
-                    memory = number1 + number2;
+                    result = number1 + number2;
                 else if (currentOperation.equals("-"))
-                    memory = number1 - number2;
+                    result = number1 - number2;
                 else if (currentOperation.equals("/"))
-                    memory = number1 / number2;
+                    result = number1 / number2;
                 else if (currentOperation.equals("*"))
-                    memory = number1 * number2;
-                else if (currentOperation.equals("M+"))
-                    memory += number2;
-                else if (currentOperation.equals("M-"))
-                    memory -= number2;
+                    result = number1 * number2;
                 else {
-                    memory = Double.parseDouble(numField.getText());
-                    numField.setText(Double.toString(memory));
+                    result = Double.parseDouble(numField.getText());
+                    numField.setText(Double.toString(result));
                 }
 
-
                 currentOperation = "";
-                numField.setText(String.valueOf(memory));
+                numField.setText(String.valueOf(result));
                 number1 = 0;
                 number2 = 0;
-
             }
         });
 
