@@ -23,21 +23,32 @@ public class JavaGUI extends JFrame {
     private void initComponents(){
 
         Container contentPane = getContentPane();
-        contentPane.setLayout(new GridLayout(5,3,10,10));
-
+        contentPane.setLayout(new BorderLayout(5,5));
         setSize(300, 300);
+
+        JPanel numberButtonPanel = new JPanel();
+        numberButtonPanel.setLayout(new GridLayout(4, 3, 2, 2));
+
+        JPanel operatorPanel = new JPanel();
+        operatorPanel.setLayout(new GridLayout(5,1,2,2));
+
+        JPanel memoryPanel = new JPanel();
+        memoryPanel.setLayout(new GridLayout(4,1,2,2));
+
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        final JTextField numField = new JTextField();
+        final JTextField numField = new JTextField("0");
+        numField.setHorizontalAlignment(JTextField.RIGHT);
 
         final JButton mrButton = new JButton("MR");
-
         final JButton mcButton = new JButton("MC");
         final JButton mAddButton = new JButton("M+");
         final JButton mSubButton = new JButton("M-");
 
         final JButton clearButton = new JButton("Clear");
+
         final JButton button1 = new JButton("1");
         final JButton button2 = new JButton("2");
         final JButton button3 = new JButton("3");
@@ -48,6 +59,7 @@ public class JavaGUI extends JFrame {
         final JButton button8 = new JButton("8");
         final JButton button9 = new JButton("9");
         final JButton button0 = new JButton("0");
+
         final JButton addButton = new JButton("+");
         final JButton subButton = new JButton("-");
         final JButton divButton = new JButton("/");
@@ -58,6 +70,7 @@ public class JavaGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 numField.setText(Double.toString(0));
+                result = 0;
                 number1 = 0;
                 number2 = 0;
             }
@@ -66,7 +79,8 @@ public class JavaGUI extends JFrame {
         mrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                numField.setText(Double.toString(memory));
+                number1 = memory;
+                numField.setText(Double.toString(number1));
             }
         });
 
@@ -298,29 +312,33 @@ public class JavaGUI extends JFrame {
             }
         });
 
+        numberButtonPanel.add(button7);
+        numberButtonPanel.add(button8);
+        numberButtonPanel.add(button9);
+        numberButtonPanel.add(button4);
+        numberButtonPanel.add(button5);
+        numberButtonPanel.add(button6);
+        numberButtonPanel.add(button1);
+        numberButtonPanel.add(button2);
+        numberButtonPanel.add(button3);
+        numberButtonPanel.add(button0);
 
-        contentPane.add(clearButton);
-        contentPane.add(mrButton);
-        contentPane.add(mcButton);
-        contentPane.add(mAddButton);
-        contentPane.add(mSubButton);
-        contentPane.add(button1);
-        contentPane.add(button2);
-        contentPane.add(button3);
-        contentPane.add(button4);
-        contentPane.add(button5);
-        contentPane.add(button6);
-        contentPane.add(button7);
-        contentPane.add(button8);
-        contentPane.add(button9);
-        contentPane.add(button0);
-        contentPane.add(addButton);
-        contentPane.add(subButton);
-        contentPane.add(divButton);
-        contentPane.add(multButton);
-        contentPane.add(equalButton);
+        operatorPanel.add(divButton);
+        operatorPanel.add(multButton);
+        operatorPanel.add(addButton);
+        operatorPanel.add(subButton);
+        operatorPanel.add(equalButton);
 
-        contentPane.add(numField);
+        memoryPanel.add(mrButton);
+        memoryPanel.add(mcButton);
+        memoryPanel.add(mAddButton);
+        memoryPanel.add(mSubButton);
+
+        contentPane.add(numField, BorderLayout.NORTH);
+        contentPane.add(numberButtonPanel, BorderLayout.CENTER);
+        contentPane.add(operatorPanel, BorderLayout.EAST);
+        contentPane.add(memoryPanel, BorderLayout.WEST);
+        contentPane.add(clearButton, BorderLayout.SOUTH);
 
         setVisible(true);
     }
